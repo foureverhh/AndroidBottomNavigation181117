@@ -21,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(nav);
 
+        setNavFragment(new WikipediaFragment());
+        bottomNavigationView.setSelectedItemId(R.id.nav_text);
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener nav =
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case R.id.nav_history:
                             fragmentSelected = new HistoryFragment();
+                            bottomNavigationView.setItemBackgroundResource(R.color.colorPrimaryDark);
                             break;
                     }
                     FragmentManager fragmentManager = getSupportFragmentManager();
@@ -50,6 +54,15 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
             };
+
+    private void setNavFragment(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container,fragment)
+                .addToBackStack(null)
+                .commit();
+
+    }
 }
 
 
